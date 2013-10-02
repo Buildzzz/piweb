@@ -1,0 +1,89 @@
+<!--============================================-->
+
+<template name="chapters">
+	<a href="{{pathFor 'home'}}">Home</a>&nbsp&nbsp&nbsp <a href="{{pathFor 'lessons'}}"> Lessons </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'viewlesson'}}"> View Lesson </a>
+	
+	<h1>Welcome to the <font color = green>{{title}}</font> lesson.</h1>
+
+	<hr>
+
+	<h2>Chapter Outline</h2>
+	<table border="1">
+		<tr>
+			<th>QuickTitle</th>
+			<th>Chapter</th>			
+			<th>Title</th>
+			<th>Overview</th>
+			<th>Goal</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+			{{#each chapter}}
+	  			{{> chapterOutline}}
+	  		{{/each}}
+	</table>
+
+	<br>
+	<hr>
+
+	{{#if editing}}
+		{{#each chapterEdit}}
+			{{> editChapterForm}}
+		{{/each}}
+	{{else}}
+		{{> addChapterForm}}
+	{{/if}}
+
+</template>
+
+<!--============================================-->
+
+<template name="chapterOutline">
+	<tr>
+		<td>{{qCTitle}}</td>
+		<td>{{cNumber}}</td>
+		<td><a href="{{pathFor 'pages'}}" id="cTitle"> {{cTitle}} </a></td>
+		<td>{{cOverview}}</td>
+		<td>{{cGoal}}</td>
+		<td><span style="color:blue;" id="editChapter">Edit</span></td>
+		<td><span style="color:red" class="del"> (x) </span></td>
+	</tr>
+</template>
+
+<template name="addChapterForm">
+	<h3>Create a new chapter</h3>
+	
+	Chapter: <span style="color:blue; font-weight:bold" id="aCNumber">{{numberOfChapters}}</span>
+  	<br>Quick Title: <input type="text" id="aCQTitle" />
+  	<br>Title: <input type="text" id="aCTitle" />
+  	<br>Chapter Overview: <br>
+  	<textarea rows=3 cols=50 id="aCOverview"></textarea>
+  	<br>Learning Goal: <br>
+  	<textarea rows=3 cols=50 id="aCGoal"></textarea>
+  	<br>
+  	<input type="submit" id="addChapter" value="Submit Chapter">
+</template>
+
+<template name="editChapterForm">
+	<h3>Edit Chapter</h3>
+	Chapter: <input type="text" id="eCNumber" value="{{cNumber}}" />
+  	<br>Quick Title: <input type="text" id="eCQTitle" value="{{qCTitle}}"/>
+  	<br>Title: <input type="text" id="eCTitle" value="{{cTitle}}" />
+  	<br>Chapter Overview: <br>
+  	<textarea rows=3 cols=50 id="eCOverview">{{cOverview}}</textarea>
+  	<br>Learning Goal: <br>
+  	<textarea rows=3 cols=50 id="eCGoal">{{cGoal}}</textarea>
+  	<br>
+  	<input type="submit" id="editChapter" value="Submit Chapter">
+  	<input type="button" id="cancelEdit" value="Cancel">
+</template>
+
+
+
+
+
+
+
+
+
+

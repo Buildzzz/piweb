@@ -1,0 +1,70 @@
+<!--============================================-->
+<template name="pages">
+	<a href="{{pathFor 'home'}}"> Home </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'lessons'}}"> Lessons </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'chapters'}}"> Chapters </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'viewlesson'}}"> View Lesson </a>
+
+	<h1>You are in the <font color = green>{{mTitle}}</font> lesson.</h1>
+
+	<h2 style="color: green">Chapter {{cNumber}} : {{cTitle}}</h2>
+
+	<hr>
+
+	<h3>Page Outline</h3>
+
+	<table border="1">
+		<tr>
+			<th>QuickTitle</th>
+			<th>Page</th>
+			<th>Title</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+			{{#each page}}
+	  			{{> pageOutline}}
+	  		{{/each}}
+	</table>
+	
+	<br>
+	<hr>
+
+	{{#if editing}}
+		{{#each pageEdit}}
+			{{> editPageForm}}
+		{{/each}}
+	{{else}}
+		{{> addPageForm}}
+	{{/if}}
+
+</template>
+
+<template name="pageOutline">
+	<tr>
+		<td>{{qPTitle}}</td>
+		<td>{{pNumber}}</td>
+		<td><a href="{{pathFor 'sections'}}" id="pTitle"> {{pTitle}} </a></td>
+		<td><span style="color:blue;" id="editPage">Edit</span></td>
+		<td><span style="color:red" class="del"> (x) </span></td>
+	</tr>
+</template>
+
+<!--============================================-->
+
+<template name="addPageForm">
+	<h3>Create a new page</h3>
+	
+	Page: <span style="color:blue; font-weight:bold" id="aPNumber">{{numberOfPages}}</span>
+  	<br>Quick Title: <input type="text" id="aPQTitle" />
+  	<br>Title: <input type="text" id="aPTitle" />
+  	<br>
+  	<input type="submit" id="addPage" value="Submit Page">
+</template>
+
+<template name="editPageForm">
+	<h3>Edit page</h3>
+
+	Page: <input type="text" id="ePNumber" value="{{pNumber}}" />
+  	<br>Quick Title: <input type="text" id="ePQTitle" value="{{qPTitle}}"/>
+  	<br>Title: <input type="text" id="ePTitle" value="{{pTitle}}" />
+  	<br>
+  	<input type="submit" id="editPage" value="Submit Page">
+  	<input type="button" id="cancelEdit" value="Cancel">
+</template>

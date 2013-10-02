@@ -1,0 +1,43 @@
+<!--============================================-->
+<template name="viewlesson">
+	<a href="{{pathFor 'home'}}"> Home </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'lessons'}}"> Lessons </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'chapters'}}"> Chapters </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'pages'}}"> Pages </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'sections'}}"> Sections </a>
+
+	<h1>Welcome to <font color = green>{{title}}</font></h1>
+	
+	{{#each chapters}}
+		{{> chapterDisplay}}
+	{{/each}}
+
+</template>
+
+<template name="chapterDisplay">
+	<h2 style="color: blue">Chapter {{cNumber}} : {{cTitle}}</h2>
+	{{#each pageForChapter}}
+		{{> pageDisplay}}
+	{{/each}}
+	Page here
+</template>
+
+<template name="pageDisplay">
+	<h3 style="color: blue">Page {{pNumber}} : {{pTitle}}</h3>
+	{{#each sectionForPage}}
+		{{> sectionDisplay}}
+	{{/each}}
+	Section here
+</template>
+
+<template name="sectionDisplay">
+	<table border="1">
+		<tr>
+			<th>Section #</th>
+			<th>Type</th>
+			<th>Text</th>
+			<th>Files</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+			{{#each section}}
+	  			{{> sectionOutline}}
+	  		{{/each}}
+	</table>
+</template>

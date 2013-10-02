@@ -1,0 +1,81 @@
+<!--============================================-->
+<template name="sections">
+	<a href="{{pathFor 'home'}}"> Home </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'lessons'}}"> Lessons </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'chapters'}}"> Chapters </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'pages'}}"> Pages </a>&nbsp&nbsp&nbsp <a href="{{pathFor 'viewlesson'}}"> View Lesson </a>
+
+	<h1>You are in the <font color = green>{{mTitle}}</font> lesson.</h1>
+
+	<h2 style="color: green">Chapter {{cNumber}} : {{cTitle}}&nbsp Page {{pNumber}} : {{pTitle}}</h2>
+
+	<h3>Sections</h3>
+
+	<table border="1">
+		<tr>
+			<th>Section #</th>
+			<th>Type</th>
+			<th>Text</th>
+			<th>Files</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+			{{#each section}}
+	  			{{> sectionOutline}}
+	  		{{/each}}
+	</table>
+
+	<br>
+	<a href="{{pathFor 'viewlesson'}}" class="likeabutton"> View Lesson </a>
+	
+	<br>
+	<hr>
+
+	{{#if editing}}
+		{{#each sectionEdit}}
+			{{> editSectionForm}}
+		{{/each}}
+	{{else}}
+		{{> addSectionForm}}
+	{{/if}}
+
+</template>
+
+<template name="sectionOutline">
+	<tr>
+		<td>{{sNumber}}</td>
+		<td>{{sType}}</td>
+		<td>{{sText}}</td>
+		<td> -- </td>
+		<td><span style="color:blue;" id="editSection">Edit</span></td>
+		<td><span style="color:red" class="del"> (x) </span></td>
+	</tr>
+</template>
+
+<!--============================================-->
+
+<template name="addSectionForm">
+	<h3>Add a new section</h3>
+	
+	Section: <span style="color:blue; font-weight:bold" id="aSNumber">{{numberOfSections}}</span>
+  	<br>Section Type:
+  		<select id="aSType">
+  			<option value="explain" selected>explain</option>
+			<option value="show">show</option>
+			<option value="ask">ask</option>
+			<option value="handout">handout</option>
+		</select>
+  	<br>Text: <br>
+  	<textarea rows=3 cols=50 id="aSText"></textarea>
+  	<br>
+  	<input type="submit" id="addSection" value="Submit Section">
+</template>
+
+<template name="editSectionForm">
+	<h3>Edit section</h3>
+
+	Section: <input type="text" id="eSNumber" value="{{sNumber}}" />
+  	<br>Section Type: <input type="text" id="eSType" value="{{sType}}" />
+  	<br>Text: <br>
+  	<textarea rows=3 cols=50 id="eSText">{{sText}}</textarea>
+  	<br>
+  	<input type="submit" id="editSection" value="Submit Section">
+  	<input type="button" id="cancelEdit" value="Cancel">
+</template>

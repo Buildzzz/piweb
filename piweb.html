@@ -1,0 +1,71 @@
+<head>
+  <title>piweb</title>
+</head>
+
+<!--============================================-->
+
+<template name="home"> 
+	<strong>Page Links</strong>
+	<br><a href="{{pathFor 'home'}}">Home</a>&nbsp&nbsp<a href="{{pathFor 'lessons'}}">Lessons</a>
+	<br>
+  
+  <body>
+  	{{> lessonList}}
+  	<br>
+	<hr>
+ 	{{> lessonForm}}
+  </body>
+</template>
+
+<!--============================================-->
+
+
+<template name="lessonList">
+	<br>Currently there are <strong>{{x}}</strong> lessons in the database.
+	<br>
+
+	<h2>List of Current Lessons</h2>
+	<table border="1">
+		<tr>
+			<th>Title</th>
+			<th>Overview</th>
+			<th>Delete?</th>
+		</tr>
+			{{#each lesson}}
+				{{> lesson}}
+			{{/each}}
+	</table>
+</template>
+
+<template name="lesson">
+		<tr>
+			<td><a href="{{pathFor 'chapters'}}" id="lessonTitle"> {{title}} </a></td>
+			
+			<td>
+				{{#if editing}}
+					<input type="text" id="lessonOverview" value="{{overview}}" />
+				{{else}}
+					<label id="lessonOverview">{{overview}}</label>
+				{{/if}}
+			</td>
+
+			<td><span style="color:red" class="del"> (x) </span></td>
+		</tr>
+</template>
+
+<template name="lessonForm">
+		<h3>Create a new Lesson</h3>
+		<div>
+		<form>
+			Lesson Title
+			<br>
+			<input type="text" id="lTitle" />
+			<br>
+			Lesson Overview
+			<br>
+			<textarea rows=3 cols=50 id="lOverview"></textarea>
+			<br>
+			<input type="button" id="addLesson" value="Add New Lesson">
+		</form>
+		</div>
+</template>
